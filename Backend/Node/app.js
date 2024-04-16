@@ -8,12 +8,11 @@ import rutaUsuario from './src/routes/usuarioRoute.js';
 import rutaDetalle from "./src/routes/detalleRoute.js";
 import rutaFinca from "./src/routes/FincaRoute.js";
 import rutaDatos from "./src/routes/DatosRouters.js";
+import almacenarDocs from "./src/routes/documentosRoute.js";
+import DescargaDocs from "./src/routes/descargaDocRoute.js"
 import cors from "cors"; 
-import RutaAuth from "./src/routes/AutonteficacionRoutes.js";
-import EstadisticaRouter from "./src/routes/EstadisticaRouters.js";
 
-const servidor = express();
-
+const servidor = express(); 
 servidor.use(bodyParser.json());
 servidor.use(bodyParser.urlencoded({ extended: true }));
 servidor.set('view engine', 'ejs');
@@ -34,8 +33,9 @@ servidor.use('/usuario', rutaUsuario);
 servidor.use('/detalle', rutaDetalle);
 servidor.use('/finca', rutaFinca);
 servidor.use('/datos', rutaDatos);
-servidor.use(EstadisticaRouter)
-servidor.use(RutaAuth)
+servidor.use("/documentos", almacenarDocs);
+servidor.use("/descarga", DescargaDocs);
+
 servidor.listen(3000, () => {
     console.log("servidor escuchando desde el puerto 3000");
 });

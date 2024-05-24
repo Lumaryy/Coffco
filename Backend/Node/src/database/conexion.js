@@ -1,4 +1,5 @@
 import { createPool } from "mysql2/promise";
+
 import dotenv from "dotenv"
 dotenv.config({ path: 'env/.env' })
 
@@ -10,3 +11,4 @@ export const conexion = createPool({
     port: process.env.DB_PORT,
     database: process.env.DB_DATABASE
 })
+

@@ -1,4 +1,6 @@
 import { conexion } from "../database/conexion.js";
+import { validationResult } from "express-validator"
+
 export const ListarDatos = async(req,res) => {
     try {
         
@@ -12,18 +14,22 @@ export const ListarDatos = async(req,res) => {
 }
 export const RegistrarDatos=async(req,res)=> {
     try {
+        const error = validationResult(req)
+        if(!error.isEmpty()){
+            return res.status(400).json(error)
+        }
         let{nombre,tipo,estado,fk_id_formato}=req.body
-        let sql = `insert into muestra(nombre,tipo,estado,fk_id_formato)
-        values ('${nombre}','${tipo}','${estado},'${fk_id_formato}')`
-        const [respuesta] = await conexion.query(sql)
+        console.log(nombre,tipo,estado,fk_id_formato)
+        let sql = `insert into datos (nombre,tipo,estado,fk_id_formato) values (?,?,?,?)`
+        const [respuesta] = await conexion.query(sql,[nombre,tipo,estado,fk_id_formato])
         if(respuesta.affectedRows>0){
-            return res.status(200).json({"menssage":"se registro correctamente el usuario"})
+            return res.status(200).json({"menssage":"dato registrado exitosamente"})
         }
         else {
-            return res.status(404).json({"mensagge":"no se registro el usuario"})
+            return res.status(404).json({"mensagge":"dato no registrado"})
         }
     } catch (error) {
-        return res.status(404).json({"menssage":"error al conectar a la base de datos"})
+        return res.status(500).json({"menssage":"error al conectar a la base de datos"+error.message})
     }
 }
 export const ActualizarDatos = async(req,res) => {

@@ -5,6 +5,7 @@ import bcryptjs from 'bcryptjs';
 
 import jwt from"jsonwebtoken"
 import { config } from "dotenv"
+
 export const validarToken=async(req,res,next)=>{
 let token_user=req.headers['token']
 if(!token_user){
@@ -13,6 +14,7 @@ if(!token_user){
 else{
     const decode =jwt.verify(token_user,process.env.SECRET,(Error,decode)=>{
         if(Error){
+
             res.status(401).json({"mensaje":"token invalido"})
         }
         else {
@@ -21,6 +23,7 @@ else{
     })
 }
 }
+
 export const validarUsuarios = async (req, res) => {
 
     try {
@@ -35,7 +38,8 @@ export const validarUsuarios = async (req, res) => {
         let sql =`SELECT nombre_usuario, rol_usuario, contraseña_usuario FROM usuarios WHERE numero_identificacion='${numero_identificacion}'`
         const [resultado] = await conexion.query(sql);
 
-         console.log(resultado)
+                console.log(resultado)
+
         if (resultado.length > 0) {
             const user = resultado[0];
             const storedPasswordHash = user.contraseña_usuario;
@@ -58,3 +62,4 @@ export const validarUsuarios = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: 'Error en el servidor' + error.message });
 }}
+

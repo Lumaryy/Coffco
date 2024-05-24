@@ -1,4 +1,5 @@
 import {conexion} from "../database/conexion.js"
+import { validationResult } from "express-validator"
 
 export const ListarMunicipio =async(req,res)=>{
     try {
@@ -17,14 +18,19 @@ export const ListarMunicipio =async(req,res)=>{
 
 export const RegistrarMunicipio=async(req,res)=>{
     try {
+        const error = validationResult(req)
+        if(!error.isEmpty()){
+            return res.status(400).json(error)
+        }
+        
         let {nombre_municipio}=req.body
         let sql =`insert into municipio (nombre_municipio) values('${nombre_municipio}')`
         const [respuesta]=await conexion.query(sql)
         if(respuesta.affectedRows>0){
-            return res.status(200).json({"menssage":"el usuario se registro correctamente"})
+            return res.status(200).json({"menssage":"el dato se registro correctamente"})
         }
         else{
-            return res.status(404).json({"message":"el usuario no se registro"})
+            return res.status(404).json({"message":"el dato no se registro"})
         }
     } catch (error) {
         return res.status(500).json({"message":"error al conectar la base de datos"})

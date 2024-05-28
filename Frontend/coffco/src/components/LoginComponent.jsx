@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-/* import escuela from "../assets/escuela.jpg"; */
-/* import escudo from "../assets/escudo.png"; */
+ import escuela from "../assets/escuela.jpg"; 
+import escudo from "../assets/escudo.png"; 
 import Api from "./Api";
 
 const LoginComponent = () => {
@@ -132,7 +132,7 @@ const LoginComponent = () => {
             </form>
           </div>
         </div>
-   {/*      <div className="w-1/2 relative">
+ <div className="w-1/2 relative">
           <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-transparent"></div>
           <img
             src={escudo}
@@ -144,7 +144,7 @@ const LoginComponent = () => {
             alt="escuela"
             className="w-full h-full object-cover"
           />
-        </div> */}
+        </div>
       </div>
     </div>
   );

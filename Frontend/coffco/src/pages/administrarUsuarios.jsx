@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RiDeleteBinLine } from "react-icons/ri";
+import Encabezado from "../components/Encabezado";
 import { TiEdit } from "react-icons/ti";
 import Modal from "../components/Modal";
 import Api from "../components/Api";
+import Nav from "../components/Nav";
 
 const AdministrarUsurioPage = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -43,7 +45,8 @@ const AdministrarUsurioPage = () => {
 
   return (
     <>
-      <main className="h-[calc(100vh-120px)] w-full absolute top-14">
+    <Encabezado/>
+    <Nav/>      <main className="h-[calc(100vh-120px)] w-full absolute top-14">
         <section
           id="content"
           className="w-[100wh-60px] lg:w-[100wh-250px] ml-[60px] lg:ml-[240px] p-5 right-0 transition-all duration-500 ease-in-out"
